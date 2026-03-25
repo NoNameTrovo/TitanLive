@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TitanLive — агентство для стримеров и цифровой магазин для геймеров. Зарабатывайте на стримах и покупайте цифровые товары быстро и выгодно.">
+  <meta name="keywords" content="TitanLive, агентство для стримеров, магазин для геймеров, реферальная система, цифровые товары">
+  <title>TitanLive — агентство и магазин</title>
+  <style>
+    :root {
+      --bg: #080b17;
+      --bg-soft: #0f1427;
+      --text: #f4f7ff;
+      --muted: #aeb6d1;
+      --primary-a: #7f5cff;
+      --primary-b: #30c8ff;
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --radius-l: 28px;
+      --radius-m: 20px;
+      --radius-s: 16px;
+      --shadow: 0 20px 50px rgba(10, 13, 25, 0.45);
+      --section-gap: 72px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(127, 92, 255, 0.3) 0%, transparent 38%),
+        radial-gradient(circle at 90% 10%, rgba(48, 200, 255, 0.24) 0%, transparent 34%),
+        linear-gradient(180deg, #05070f 0%, var(--bg) 40%, #060911 100%);
+      color: var(--text);
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: var(--section-gap) 0;
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: var(--radius-m);
+      box-shadow: var(--shadow);
+    }
+
+    .title {
+      font-size: clamp(1.65rem, 4.9vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: clamp(1rem, 2.8vw, 1.2rem);
+      max-width: 760px;
+    }
+
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 22px;
+      border-radius: 18px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+      width: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary-a), var(--primary-b));
+      box-shadow: 0 14px 34px rgba(103, 135, 255, 0.35);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 18px 36px rgba(103, 135, 255, 0.5);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      border-color: var(--glass-border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(170, 205, 255, 0.65);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .hero {
+      padding-top: 44px;
+      padding-bottom: 26px;
+    }
+
+    .hero-card {
+      padding: 30px 20px;
+      border-radius: var(--radius-l);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -35% -55% auto;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(66, 180, 255, 0.3), transparent 70%);
+      pointer-events: none;
+    }
+
+    .mini-grid {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .mini-item {
+      padding: 16px;
+      border-radius: var(--radius-s);
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .mini-item h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .mini-item p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .section-head {
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 4.4vw, 2.3rem);
+      margin-bottom: 8px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .grid-5 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: var(--radius-m);
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.05);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(154, 188, 255, 0.72);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+      color: var(--muted);
+    }
+
+    .list li::before {
+      content: "•";
+      color: #88d8ff;
+      margin-right: 8px;
+    }
+
+    .stats .card {
+      text-align: center;
+      padding: 26px 18px;
+    }
+
+    .stats-num {
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      line-height: 1;
+      font-weight: 800;
+      background: linear-gradient(135deg, #c3b3ff, #84e0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .earn-card p,
+    .product-desc,
+    .news-desc,
+    .streamer-meta {
+      color: var(--muted);
+    }
+
+    .product-card h3 {
+      margin-bottom: 6px;
+    }
+
+    .product-actions {
+      margin-top: 14px;
+    }
+
+    .streamer-card {
+      display: grid;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(127, 92, 255, 0.9), rgba(48, 200, 255, 0.8));
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .streamer-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .streamer-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      font-size: 0.8rem;
+      color: #d9e7ff;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .tag-live {
+      border-color: rgba(255, 78, 114, 0.6);
+      background: rgba(255, 72, 97, 0.16);
+      color: #ffd6df;
+    }
+
+    .seo-box {
+      padding: 28px 22px;
+    }
+
+    .seo-box p + p {
+      margin-top: 14px;
+    }
+
+    .news-card time {
+      display: inline-block;
+      font-size: 0.9rem;
+      color: #9cc5ff;
+      margin-bottom: 8px;
+    }
+
+    .final-cta {
+      text-align: center;
+      padding: 34px 20px;
+      border-radius: var(--radius-l);
+    }
+
+    footer {
+      padding: 30px 0 50px;
+      color: #8e9aba;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 640px) {
+      .btn-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .mini-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 960px) {
+      .section {
+        padding: 88px 0;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+
+      .hero-card {
+        padding: 44px;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .grid-5 {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card glass">
+          <h1 class="title">TitanLive - агентство для стримеров и цифровой магазин для геймеров</h1>
+          <p class="subtitle">Зарабатывайте на стримах, реферальной системе и активностях. Покупайте цифровые товары быстро, безопасно и с выгодой для себя.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#agency">Вступить в агентство</a>
+            <a class="btn btn-secondary" href="#shop">Перейти в магазин</a>
+          </div>
+          <div class="mini-grid">
+            <article class="mini-item">
+              <h3>Для стримеров</h3>
+              <p>Монетизация, коллаборации и регулярные выплаты.</p>
+            </article>
+            <article class="mini-item">
+              <h3>Для геймеров</h3>
+              <p>Цифровые товары, пополнение и быстрые заказы.</p>
+            </article>
+            <article class="mini-item">
+              <h3>Общее преимущество</h3>
+              <p>Единая экосистема для заработка и выгодных покупок.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="agency">
+      <div class="container">
+        <div class="section-head">
+          <h2>Два направления</h2>
+          <p>Выберите свой путь: развитие канала или выгодные игровые покупки.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card glass">
+            <h3>Для стримеров</h3>
+            <ul class="list">
+              <li>реферальные отчисления</li>
+              <li>реклама</li>
+              <li>рейды и коллаборации</li>
+              <li>турниры</li>
+              <li>выплаты</li>
+            </ul>
+            <a class="btn btn-primary" href="#final">👉 Вступить в агентство</a>
+          </article>
+          <article class="card glass" id="shop">
+            <h3>Для геймеров</h3>
+            <ul class="list">
+              <li>пополнение</li>
+              <li>цифровые товары</li>
+              <li>скорость</li>
+              <li>реферальная система</li>
+            </ul>
+            <a class="btn btn-primary" href="#products">👉 Перейти в магазин</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section stats">
+      <div class="container">
+        <div class="section-head">
+          <h2>Доверие в цифрах</h2>
+        </div>
+        <div class="grid-4">
+          <article class="card glass">
+            <div class="stats-num">2000+</div>
+            <p>стримеров</p>
+          </article>
+          <article class="card glass">
+            <div class="stats-num">$5M+</div>
+            <p>выплаты</p>
+          </article>
+          <article class="card glass">
+            <div class="stats-num">$15K</div>
+            <p>турниры до</p>
+          </article>
+          <article class="card glass">
+            <div class="stats-num">12000+</div>
+            <p>участников</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Как можно зарабатывать</h2>
+          <p>Ключевые сценарии для стримеров и пользователей платформы.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card glass earn-card">
+            <h3>Стримеры</h3>
+            <ul class="list">
+              <li>доход с аудитории</li>
+              <li>рекламные интеграции</li>
+              <li>активности и ивенты</li>
+            </ul>
+          </article>
+          <article class="card glass earn-card">
+            <h3>Пользователи</h3>
+            <ul class="list">
+              <li>скидки на покупки</li>
+              <li>приглашения друзей</li>
+              <li>доход с рефералов</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="container">
+        <div class="section-head">
+          <h2>Товары в магазине</h2>
+          <p>Популярные категории цифровых покупок для геймеров.</p>
+        </div>
+        <div class="grid-5">
+          <article class="card glass product-card">
+            <h3>Steam</h3>
+            <p class="product-desc">Пополнение баланса и подарочные коды.</p>
+            <div class="product-actions"><a class="btn btn-secondary" href="#final">Купить</a></div>
+          </article>
+          <article class="card glass product-card">
+            <h3>Genshin</h3>
+            <p class="product-desc">Кристаллы и наборы для быстрого прогресса.</p>
+            <div class="product-actions"><a class="btn btn-secondary" href="#final">Купить</a></div>
+          </article>
+          <article class="card glass product-card">
+            <h3>Honkai</h3>
+            <p class="product-desc">Внутриигровые покупки с быстрым зачислением.</p>
+            <div class="product-actions"><a class="btn btn-secondary" href="#final">Купить</a></div>
+          </article>
+          <article class="card glass product-card">
+            <h3>ZZZ</h3>
+            <p class="product-desc">Пакеты валюты для стабильного апгрейда.</p>
+            <div class="product-actions"><a class="btn btn-secondary" href="#final">Купить</a></div>
+          </article>
+          <article class="card glass product-card">
+            <h3>PUBG</h3>
+            <p class="product-desc">UC и спец-наборы для матчей и ивентов.</p>
+            <div class="product-actions"><a class="btn btn-secondary" href="#final">Купить</a></div>
+          </article>
+        </div>
+        <div class="btn-row" style="margin-top:18px;">
+          <a class="btn btn-primary" href="#final">👉 Смотреть все товары</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Стримеры TitanLive</h2>
+          <p>Социальное доказательство: живое комьюнити активных авторов.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card glass streamer-card">
+            <div class="streamer-head">
+              <div class="avatar">JV</div>
+              <div>
+                <h3>Jove</h3>
+                <p class="streamer-meta">Trovo • онлайн ~550</p>
+              </div>
+            </div>
+            <div class="streamer-tags">
+              <span class="tag tag-live">LIVE</span>
+              <span class="tag">WoT</span>
+              <span class="tag">Рейды</span>
+            </div>
+          </article>
+          <article class="card glass streamer-card">
+            <div class="streamer-head">
+              <div class="avatar">LB</div>
+              <div>
+                <h3>LeBwa</h3>
+                <p class="streamer-meta">Trovo • онлайн ~320</p>
+              </div>
+            </div>
+            <div class="streamer-tags">
+              <span class="tag">PUBG</span>
+              <span class="tag">Турниры</span>
+              <span class="tag">Коллабы</span>
+            </div>
+          </article>
+          <article class="card glass streamer-card">
+            <div class="streamer-head">
+              <div class="avatar">NM</div>
+              <div>
+                <h3>MeanMachins</h3>
+                <p class="streamer-meta">Trovo • онлайн ~340</p>
+              </div>
+            </div>
+            <div class="streamer-tags">
+              <span class="tag tag-live">LIVE</span>
+              <span class="tag">Шоу</span>
+              <span class="tag">Активности</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="seo-box glass">
+          <h2 class="title" style="font-size:clamp(1.4rem,4vw,2rem); margin-bottom: 10px;">Что такое TitanLive</h2>
+          <p>TitanLive объединяет два ключевых направления: агентство для стримеров и цифровой магазин для геймеров. Здесь авторы развивают канал, участвуют в активностях и получают монетизацию, а игроки быстро покупают нужные товары для любимых проектов.</p>
+          <p>Платформа помогает зарабатывать и экономить: стримеры получают поддержку, рекламные возможности и выплаты, пользователи — удобные покупки, бонусы и реферальную систему.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Новости</h2>
+          <p>Главные обновления платформы, магазина и событий.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card glass news-card">
+            <time datetime="2026-03-16">16.03.2026</time>
+            <h3>Trovo в 2026: как изменился рынок стриминга</h3>
+            <p class="news-desc">Разобрали ключевые изменения платформы и рабочие способы монетизации для авторов.</p>
+          </article>
+          <article class="card glass news-card">
+            <time datetime="2025-10-24">24.10.2025</time>
+            <h3>ТыквоХайп 2025: старт сезонной активности</h3>
+            <p class="news-desc">Ивент с наградами, заданиями и бонусами для активных стримеров и аудитории.</p>
+          </article>
+          <article class="card glass news-card">
+            <time datetime="2025-08-06">06.08.2025</time>
+            <h3>Обновление TitanLive 2.0</h3>
+            <p class="news-desc">Новый дизайн, удобная структура и улучшенные сценарии для стримеров и покупателей.</p>
+          </article>
+        </div>
+        <div class="btn-row" style="margin-top:18px;">
+          <a class="btn btn-secondary" href="#final">👉 Все новости</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="final">
+      <div class="container">
+        <div class="final-cta glass">
+          <h2 class="title" style="margin-bottom:10px;">С чего хотите начать?</h2>
+          <p class="subtitle" style="margin: 0 auto;">Выберите действие и начните зарабатывать или покупать уже сейчас.</p>
+          <div class="btn-row" style="margin-top:22px;">
+            <a class="btn btn-primary" href="#agency">Вступить в агентство</a>
+            <a class="btn btn-secondary" href="#shop">Перейти в магазин</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 TitanLive. Агентство и цифровой магазин для геймеров и стримеров.</div>
+  </footer>
+</body>
+</html>
